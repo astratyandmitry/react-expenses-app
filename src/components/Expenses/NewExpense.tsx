@@ -1,21 +1,49 @@
 import React, { useState } from 'react'
 
-import '../../assets/angle-down.svg'
 import FormInput from '../UI/Form/FormInput'
+import { Expense } from '../../types'
+import _ from 'lodash'
 
 interface NexExpenseProps {
-
+  onExpenseAdded (expense: Expense): void;
 }
 
-function NewExpense (props: NexExpenseProps) {
+function NewExpense ({ onExpenseAdded }: NexExpenseProps) {
   const [formVisible, setFormVisible] = useState(true)
-
   const handleFormVisibleToggle = () => {
     setFormVisible(prevState => !prevState)
   }
 
+  const [expense, setExpense] = useState({
+    title: '',
+    store: '',
+    amount: '',
+    date: '',
+  })
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    onExpenseAdded({
+      id: `exp-${_.random().toString()}`,
+      title: _.trim(expense.title),
+      store: _.trim(expense.title),
+      amount: _.round(parseInt(expense.amount), 2),
+      date: new Date(expense.date),
+    })
+
+    setExpense({
+      title: '',
+      store: '',
+      amount: '',
+      date: 'new Date()',
+    })
+  }
+
+  const handleInputUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setExpense((prevState => {
+      return { ...prevState, [e.target.id]: e.target.value }
+    }))
   }
 
   return (
@@ -39,18 +67,24 @@ function NewExpense (props: NexExpenseProps) {
               name="title"
               label="Title"
               placeholder="Description of Expense"
+              value={expense.title}
+              onInputChanged={handleInputUpdate}
             />
 
             <FormInput
               name="store"
               label="Store"
               placeholder="Place of purchase"
+              value={expense.store}
+              onInputChanged={handleInputUpdate}
             />
 
             <FormInput
               name="amount"
               label="Amount"
               placeholder="Amount of Purchase"
+              value={expense.amount}
+              onInputChanged={handleInputUpdate}
               type="number"
             />
 
@@ -58,11 +92,14 @@ function NewExpense (props: NexExpenseProps) {
               name="date"
               label="Date"
               placeholder="Purchase Date"
+              value={expense.date}
+              onInputChanged={handleInputUpdate}
               type="date"
             />
           </div>
 
-          <button type="submit" className="bg-blue-600 text-white font-medium px-4 py-2 rounded inline-block mt-4 hover:bg-blue-700 focus:bg-blue-800">
+          <button type="submit"
+                  className="bg-blue-600 text-white font-medium px-4 py-2 rounded inline-block mt-4 hover:bg-blue-700 focus:bg-blue-800">
             Save Expense
           </button>
         </form>

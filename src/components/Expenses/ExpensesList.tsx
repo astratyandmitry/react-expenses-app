@@ -43,7 +43,7 @@ function ExpensesList ({ expenses, useFilter = false }: ExpensesListProps) {
             </div>
 
             <div>
-              -${_.round(_.sumBy(filteredExpenses, 'amount'), 2).toLocaleString(undefined, { minimumFractionDigits: 2})}
+              -${_.round(_.sumBy(filteredExpenses, 'amount'), 2).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
           </div>
         </div>

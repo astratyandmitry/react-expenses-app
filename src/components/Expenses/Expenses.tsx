@@ -1,29 +1,30 @@
 import React, { useState } from 'react'
 import NewExpense from './NewExpense'
 import ExpensesList from './ExpensesList'
+import { Expense } from '../../types'
 
 const DUMMY_EXPENSES = [
   {
-    id: 'e1',
+    id: 'exp-1',
     title: 'Toilet Paper',
     amount: 94.12,
     date: new Date(2020, 7, 14),
   },
   {
-    id: 'e2',
+    id: 'exp-2',
     title: 'New TV',
     amount: 799.49,
     date: new Date(2019, 2, 12),
   },
   {
-    id: 'e3',
+    id: 'exp-3',
     title: 'Car Insurance',
     store: 'NOMAD Insurance',
     amount: 294.67,
     date: new Date(2021, 2, 28),
   },
   {
-    id: 'e4',
+    id: 'exp-4',
     title: 'New Desk (Wooden)',
     store: 'IKEA Sweden',
     amount: 450,
@@ -32,11 +33,15 @@ const DUMMY_EXPENSES = [
 ]
 
 function Expenses () {
-  const [expenses] = useState(DUMMY_EXPENSES)
+  const [expenses, setExpenses] = useState<Expense[]>(DUMMY_EXPENSES)
+
+  const handleExpenseAdded = (expense: Expense) => {
+    setExpenses(prevState => [expense, ...prevState])
+  }
 
   return (
     <div>
-      <NewExpense/>
+      <NewExpense onExpenseAdded={handleExpenseAdded}/>
 
       <ExpensesList expenses={expenses} useFilter={true}/>
     </div>
