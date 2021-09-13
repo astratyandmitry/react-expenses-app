@@ -11,12 +11,12 @@ function ExpenseItemDate ({ expense }: ExpenseItemDateProps) {
   const year = expense.date.toLocaleString('en-US', { year: 'numeric' })
 
   return (
-    <div className="w-32 text-center bg-blue-50 p-4 rounded">
-      <div className="text-blue-600 font-medium leading-none">
-        {year}
+    <div className="w-32 text-center bg-yellow-50 p-2 rounded">
+      <div className="text-yellow-500 font-medium">
+        {month}, {day}
       </div>
-      <div className="text-sm leading-snug text-blue-500">
-        {day} {month}
+      <div className="text-sm leading-snug text-yellow-400">
+        {year}
       </div>
     </div>
   )

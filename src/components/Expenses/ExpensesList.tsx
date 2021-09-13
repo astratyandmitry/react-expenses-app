@@ -22,7 +22,7 @@ function ExpensesList ({ expenses, useFilter = false }: ExpensesListProps) {
   })
 
   return (
-    <div className="bg-white shadow-xl rounded-md p-4">
+    <div className="bg-white shadow-xl rounded-md p-8">
       {useFilter && <ExpensesFilter
         yearsRange={filterYearsRange}
         selectedYear={filterSelectedYear}
@@ -32,10 +32,20 @@ function ExpensesList ({ expenses, useFilter = false }: ExpensesListProps) {
       {filteredExpenses.length === 0 && <ExpensesEmpty/>}
 
       {filteredExpenses.length > 0 && (
-        <div className="divide-y">
+        <div className="divide-y divide-gray-100 border border-gray-100 rounded overflow-hidden">
           {filteredExpenses.map((expanse: Expense) => (
             <ExpenseItem key={expanse.id} expense={expanse}/>
           ))}
+
+          <div className="px-6 py-3 bg-gray-50 flex items-center justify-between text-sm text-gray-500 font-medium">
+            <div>
+              Total: {expenses.length} items
+            </div>
+
+            <div>
+              -${_.round(_.sumBy(filteredExpenses, 'amount'), 2).toLocaleString(undefined, { minimumFractionDigits: 2})}
+            </div>
+          </div>
         </div>
       )}
     </div>

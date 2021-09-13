@@ -13,13 +13,13 @@ function ExpensesFilter ({ yearsRange, selectedYear, onYearChanged }: ExpensesFi
   }
 
   return (
-    <div className="flex justify-between items-center bg-gray-50 p-3 rounded">
-      <div className="text-sm text-gray-700">
+    <div className="flex justify-between items-center bg-gray-500 px-6 py-3 rounded mb-4">
+      <div className="text-sm text-gray-100">
         Filter Expenses By Year
       </div>
 
       <select
-        className="text-sm bg-white border p-1 rounded"
+        className="text-sm bg-white py-1 px-2 rounded"
         value={selectedYear}
         onChange={handleYearChange}
       >

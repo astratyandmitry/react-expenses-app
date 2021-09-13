@@ -1,6 +1,7 @@
 import React from 'react'
 import { Expense } from '../../types'
 import ExpenseItemDate from './ExpenseItemDate'
+import _ from 'lodash'
 
 interface ExpenseItemProps {
   expense: Expense;
@@ -8,7 +9,7 @@ interface ExpenseItemProps {
 
 function ExpenseItem ({ expense }: ExpenseItemProps) {
   return (
-    <div className="flex p-4 items-center">
+    <div className="flex p-6 items-center">
       <ExpenseItemDate expense={expense}/>
 
       <div className="ml-8 flex flex-grow items-center justify-between">
@@ -18,12 +19,12 @@ function ExpenseItem ({ expense }: ExpenseItemProps) {
           </div>
 
           {expense.store && (
-            <div className="text-sm text-gray-600 leading-snug">at {expense.store}</div>
+            <div className="text-sm text-gray-500 leading-snug">at {expense.store}</div>
           )}
         </div>
 
-        <div className="text-red-600 font-medium">
-          -${expense.amount}
+        <div className="text-red-600">
+          -${expense.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
         </div>
       </div>
     </div>
