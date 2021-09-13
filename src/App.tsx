@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+import './index.css'
+import Hero from './components/UI/Hero'
+import Expenses from './components/Expenses/Expenses'
+
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen min-w-screen bg-gray-100">
+      <div className="container py-16 px-4 mx-auto">
+        <Hero/>
+
+        <Expenses/>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
