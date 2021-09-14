@@ -4,6 +4,7 @@ import ExpenseItem from './ExpenseItem'
 import ExpensesEmpty from './ExpensesEmpty'
 import ExpensesFilter from './ExpensesFilter'
 import _ from 'lodash'
+import ExpensesChart from './ExpensesChart'
 
 interface ExpensesListProps {
   expenses: Expense[];
@@ -22,32 +23,36 @@ function ExpensesList ({ expenses, useFilter = false }: ExpensesListProps) {
   })
 
   return (
-    <div className="bg-white shadow-xl rounded-md p-8">
-      {useFilter && <ExpensesFilter
-        yearsRange={filterYearsRange}
-        selectedYear={filterSelectedYear}
-        onYearChanged={setFilterSelectedYear}
-      />}
+    <div>
+      <ExpensesChart expenses={filteredExpenses} />
 
-      {filteredExpenses.length === 0 && <ExpensesEmpty/>}
+      <div className="bg-white shadow-xl rounded-md p-8">
+        {useFilter && <ExpensesFilter
+          yearsRange={filterYearsRange}
+          selectedYear={filterSelectedYear}
+          onYearChanged={setFilterSelectedYear}
+        />}
 
-      {filteredExpenses.length > 0 && (
-        <div className="divide-y divide-gray-100 border border-gray-100 rounded overflow-hidden">
-          {filteredExpenses.map((expanse: Expense) => (
-            <ExpenseItem key={expanse.id} expense={expanse}/>
-          ))}
+        {filteredExpenses.length === 0 && <ExpensesEmpty/>}
 
-          <div className="px-6 py-3 bg-gray-50 flex items-center justify-between text-sm text-gray-500 font-medium">
-            <div>
-              Total: {expenses.length} items
-            </div>
+        {filteredExpenses.length > 0 && (
+          <div className="divide-y divide-gray-100 border border-gray-100 rounded overflow-hidden">
+            {filteredExpenses.map((expanse: Expense) => (
+              <ExpenseItem key={expanse.id} expense={expanse}/>
+            ))}
 
-            <div>
-              -${_.round(_.sumBy(filteredExpenses, 'amount'), 2).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            <div className="px-6 py-3 bg-gray-50 flex items-center justify-between text-sm text-gray-500 font-medium">
+              <div>
+                Total: {expenses.length} items
+              </div>
+
+              <div>
+                -${_.round(_.sumBy(filteredExpenses, 'amount'), 2).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

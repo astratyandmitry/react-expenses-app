@@ -9,7 +9,7 @@ interface NexExpenseProps {
 }
 
 function NewExpense ({ onExpenseAdded }: NexExpenseProps) {
-  const [formVisible, setFormVisible] = useState(true)
+  const [formVisible, setFormVisible] = useState(false)
   const handleFormVisibleToggle = () => {
     setFormVisible(prevState => !prevState)
   }
@@ -36,7 +36,7 @@ function NewExpense ({ onExpenseAdded }: NexExpenseProps) {
       title: '',
       store: '',
       amount: '',
-      date: 'new Date()',
+      date: '',
     })
   }
 

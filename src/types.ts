@@ -6,3 +6,8 @@ export interface Expense {
   date: Date;
 }
 
+export interface ChartDataset {
+  label: string;
+  value: number;
+}
+
